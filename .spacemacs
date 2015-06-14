@@ -28,8 +28,11 @@
      lua
      markdown
      ;; org
-     shell
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom)
      syntax-checking
+     version-control
      )
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
