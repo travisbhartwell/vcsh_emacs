@@ -21,13 +21,14 @@
      better-defaults
      emacs-lisp
      extra-langs
-     finance
+     (finance :variables
+              finance-default-post-amount-alignment-column 68)
      (git :variables
            git-gutter-use-fringe t)
      haskell
      lua
      markdown
-     ;; org
+     org
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
