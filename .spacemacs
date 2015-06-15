@@ -21,8 +21,7 @@
      better-defaults
      emacs-lisp
      extra-langs
-     (finance :variables
-              finance-default-post-amount-alignment-column 68)
+     finance
      (git :variables
            git-gutter-use-fringe t)
      haskell
@@ -180,6 +179,7 @@ before layers configuration."
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
+  (setq ledger-post-amount-alignment-column 68)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
