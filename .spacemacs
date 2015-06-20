@@ -167,7 +167,7 @@ before layers configuration."
         (mapcar
          (lambda (dir)
                   (expand-file-name dir tbh-home-dir))
-                '("Projects" "Third-Party" "Documents" "Work")))
+                '("Projects/" "Third-Party/" "Documents/" "Work/")))
 
   (setq server-use-tcp t
         server-host "127.0.0.1"
