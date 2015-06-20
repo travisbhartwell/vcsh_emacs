@@ -22,9 +22,10 @@
      emacs-lisp
      extra-langs
      finance
-     (git :variables
-           git-gutter-use-fringe t)
+     git
+     github
      haskell
+     javascript
      lua
      markdown
      org
