@@ -19,6 +19,8 @@
      ;; ----------------------------------------------------------------
      auto-completion
      better-defaults
+     (c-c++ :variables
+            c-c++-enable-clang-support t)
      emacs-lisp
      extra-langs
      finance
@@ -29,9 +31,11 @@
      lua
      markdown
      org
+     semantic
      (shell :variables
             shell-default-height 30
-            shell-default-position 'bottom)
+            shell-default-position 'bottom
+            shell-default-term-shell "/run/current-system/sw/bin/bash")
      syntax-checking
      version-control
      )
@@ -102,6 +106,11 @@ before layers configuration."
    ;; By default the command key is `:' so ex-commands are executed like in Vim
    ;; with `:' and Emacs commands are executed with `<leader> :'.
    dotspacemacs-command-key ":"
+   ;; Location where to auto-save files. Possible values are `original' to
+   ;; auto-save the file in-place, `cache' to auto-save the file to another
+   ;; file stored in the cache directory and `nil' to disable auto-saving.
+   ;; Default value is `cache'.
+   dotspacemacs-auto-save-file-location 'cache
    ;; If non nil then `ido' replaces `helm' for some commands. For now only
    ;; `find-files' (SPC f f) is replaced.
    dotspacemacs-use-ido nil
