@@ -27,6 +27,7 @@
      git
      github
      haskell
+     (ibuffer :variables ibuffer-group-buffers-by 'projects)
      javascript
      lua
      markdown
