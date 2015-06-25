@@ -31,6 +31,7 @@
      lua
      markdown
      org
+     ruby
      semantic
      (shell :variables
             shell-default-height 30
@@ -164,20 +165,6 @@ before layers configuration."
    dotspacemacs-default-package-repository nil
    )
   ;; User initialization goes here
-  (defconst tbh-home-dir
-    (getenv "HOME")
-    "The full path of the user's home directory.")
-
-  (defconst tbh-emacs-d-dir
-    (expand-file-name ".emacs.d" tbh-home-dir)
-    "Top level directory for local configuration and code.")
-
-  (setq magit-repo-dirs
-        (mapcar
-         (lambda (dir)
-                  (expand-file-name dir tbh-home-dir))
-                '("Projects/" "Third-Party/" "Documents/" "Work/")))
-
   (setq server-use-tcp t
         server-host "127.0.0.1"
         server-name "emacs-server"
@@ -189,8 +176,21 @@ before layers configuration."
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
-  (setq ledger-post-amount-alignment-column 68)
-)
+  (setq ledger-post-amount-alignment-column 68
+        magit-repo-dirs (mapcar
+                         (lambda (dir)
+                           (expand-file-name dir tbh-home-dir))
+                         '("Projects/" "Third-Party/" "Documents/" "Work/"))
+        vc-follow-symlinks t)
+ )
+
+(defconst tbh-home-dir
+  (getenv "HOME")
+  "The full path of the user's home directory.")
+
+(defconst tbh-emacs-d-dir
+  (expand-file-name ".emacs.d" tbh-home-dir)
+  "Top level directory for local configuration and code.")
 
 (defun unfill-paragraph ()
   (interactive)
