@@ -1,6 +1,40 @@
 ;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
+;; Constsnts I use to refer to my system
+(defconst tbh-hostname
+  (car (split-string system-name "\\." t))
+  "The hostname for the current system.")
+
+(defconst tbh-home-dir
+  (getenv "HOME")
+  "The full path of the user's home directory.")
+
+(defconst tbh-emacs-d-dir
+  (expand-file-name ".emacs.d" tbh-home-dir)
+  "Top level directory for local configuration and code.")
+
+(defconst tbh-spacemacs-d-dir
+  (expand-file-name ".spacemacs.d" tbh-home-dir)
+  "Top level directory for local Spacemacs configuration and code.")
+
+;; Load system specific config, if it exists
+(let ((tbh-system-specific-config
+       (expand-file-name
+        (concat tbh-hostname ".el") tbh-spacemacs-d-dir)))
+  (if (file-readable-p tbh-system-specific-config)
+      (load-file tbh-system-specific-config)))
+
+;; Generally Useful Functions
+(defun unfill-paragraph ()
+  (interactive)
+  (let ((fill-column (point-max)))
+    (fill-paragraph nil)))
+
+(defun unfill-region ()
+  (interactive)
+  (let ((fill-column (point-max)))
+    (fill-region (region-beginning) (region-end) nil)))
 
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration."
@@ -19,22 +53,14 @@
      ;; ----------------------------------------------------------------
      auto-completion
      better-defaults
-     (c-c++ :variables
-            c-c++-enable-clang-support t)
      emacs-lisp
      extra-langs
-     finance
      git
      github
-     haskell
      (ibuffer :variables
               ibuffer-group-buffers-by 'projects)
-     javascript
-     lua
      markdown
      org
-     ruby
-     semantic
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom
@@ -46,13 +72,24 @@
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(emr)
+   dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
-   dotspacemacs-delete-orphan-packages t))
+   dotspacemacs-delete-orphan-packages t)
+
+  ;; If a system-specific layers configuration function exist, call it
+  (if (fboundp 'tbh/dotspacemacs/layers)
+      (tbh/dotspacemacs/layers)))
+
+;; Useful function for local configs to set theme
+(defun tbh-push-theme-to-front (theme)
+  ;; First, delete it if it is already in the list
+  (delete theme dotspacemacs-themes)
+  ;; Then, add it back to the top
+  (add-to-list 'dotspacemacs-themes theme))
 
 (defun dotspacemacs/init ()
   "Initialization function.
@@ -79,10 +116,10 @@ before layers configuration."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(misterioso
-                         tango-dark
-                         solarized-light
+   dotspacemacs-themes '(solarized-light
                          solarized-dark
+                         spacemacs-light
+                         spacemacs-dark
                          leuven
                          monokai
                          zenburn)
@@ -172,42 +209,35 @@ before layers configuration."
         server-name "emacs-server"
         server-auth-dir (expand-file-name "server"
                                           tbh-emacs-d-dir))
+
+  ;; If a system-specific init function exists, call it
+  (if (fboundp 'tbh/dotspacemacs/init)
+      (tbh/dotspacemacs/init))
   )
+
+;; Helpful function to add home directory subdirectories to magit-repo-dirs
+(defun tbh-add-magit-repo-dirs (dirs)
+  (when (not (boundp 'magit-repo-dirs))
+    (setq magit-repo-dirs '()))
+  (dolist (dir dirs)
+    (let ((full-path (expand-file-name dir tbh-home-dir)))
+      (when (file-directory-p full-path)
+        (add-to-list 'magit-repo-dirs full-path)))))
 
 (defun dotspacemacs/config ()
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
-  (setq ledger-post-amount-alignment-column 68
-        magit-repo-dirs (mapcar
-                         (lambda (dir)
-                           (expand-file-name dir tbh-home-dir))
-                         '("Projects/" "Third-Party/" "Documents/" "Work/"))
+  (setq epg-gpg-program "gpg2"
+        user-full-name "Travis B. Hartwell"
+        user-mail-address "nafai@travishartwell.net"
         vc-follow-symlinks t)
- (add-hook 'prog-mode-hook (lambda ()
-                             (emr-initialize)
-                             (evil-leader/set-key-for-mode major-mode
-                               "or"
-                               'emr-show-refactor-menu)))
+  (tbh-add-magit-repo-dirs '("Projects/"))
+
+  ;; If a system specific config function exists, call it
+  (if (fboundp 'tbh/dotspacemacs/config)
+      (tbh/dotspacemacs/config))
 )
-
-(defconst tbh-home-dir
-  (getenv "HOME")
-  "The full path of the user's home directory.")
-
-(defconst tbh-emacs-d-dir
-  (expand-file-name ".emacs.d" tbh-home-dir)
-  "Top level directory for local configuration and code.")
-
-(defun unfill-paragraph ()
-  (interactive)
-  (let ((fill-column (point-max)))
-    (fill-paragraph nil)))
-
-(defun unfill-region ()
-  (interactive)
-  (let ((fill-column (point-max)))
-    (fill-region (region-beginning) (region-end) nil)))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
