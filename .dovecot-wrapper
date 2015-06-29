@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+readonly dovecot_dir=$(nix-instantiate --eval -E '(import <nixpkgs> {}).dovecot.outPath' | grep -o '[^"]*')
+readonly imap="${dovecot_dir}/libexec/dovecot/imap"
+
+# The conf file is a requisite of the dovecot system service
+readonly dovecot_conf=$(nix-store --query --requisites $(nix-store --query --requisites /run/current-system | grep "unit-dovecot2") | grep conf)
+
+exec "${imap}" -c "${dovecot_conf}"

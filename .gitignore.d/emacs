@@ -2,3 +2,7 @@
 !/.gitignore.d
 !/.gitignore.d/emacs
 !/.spacemacs
+!/.spacemacs.d
+!/.spacemacs.d/*
+!/.gnus.el
+!/.dovecot-wrapper
