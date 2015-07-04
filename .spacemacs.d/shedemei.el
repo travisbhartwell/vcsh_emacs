@@ -5,18 +5,20 @@
          '(
            (c-c++ :variables
                   c-c++-enable-clang-support t)
+           eyebrowse
            finance
            gnus
            haskell
            javascript
            lua
+           purescript
            ruby
            semantic
            )))
     (dolist (layer local-configuration-layers)
       (add-to-list 'dotspacemacs-configuration-layers layer)))
 
-  (let ((local-additional-packages '(emr google-contacts sx w3m)))
+  (let ((local-additional-packages '(emr google-contacts w3m)))
     (dolist (package local-additional-packages)
       (add-to-list 'dotspacemacs-additional-packages package))))
 
@@ -37,5 +39,3 @@ layers configuration, after the general dotspacemacs/config."
                                 "or"
                                 'emr-show-refactor-menu)))
   (tbh-add-magit-repo-dirs '("Documents/" "Third-Party/" "Work/")))
-
-
