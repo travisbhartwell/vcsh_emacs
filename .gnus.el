@@ -8,8 +8,7 @@
                              (address "nafai@travishartwell.net")))
       gnus-select-method '(nntp "news.gmane.org")
       gnus-summary-thread-gathering-function 'gnus-gather-threads-by-subject
-      gnus-thread-sort-functions '((not gnus-thread-sort-by-date)
-                                   (not gnus-thread-sort-by-number))
+      gnus-thread-sort-functions '((not gnus-thread-sort-by-date))
       gnus-thread-hide-subtree t
       gnus-thread-ignore-subject t
       gnus-use-cache t
@@ -28,7 +27,5 @@
 (add-to-list 'gnus-secondary-select-methods '(nnimap "travishartwell.net"
                                                      (nnimap-address "localhost")
                                                      (nnimap-stream shell)
-                                                     (imap-shell-program (expand-file-name ".dovecot-wrapper" tbh-home-dir))
                                                      (nnir-search-engine imap)))
-(add-to-list 'gnus-secondary-select-methods '())
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)

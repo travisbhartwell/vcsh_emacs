@@ -40,7 +40,7 @@
   "Configuration Layers declaration."
   (setq-default
    ;; List of additional paths where to look for configuration layers.
-   ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
+   ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
@@ -61,6 +61,7 @@
               ibuffer-group-buffers-by 'projects)
      markdown
      org
+     search-engine
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom
@@ -68,7 +69,7 @@
      syntax-checking
      version-control
      )
-   ;; List of additional packages that will be installed wihout being
+   ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
@@ -109,7 +110,7 @@ before layers configuration."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed.
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner 'random
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'."
    dotspacemacs-startup-lists '(recents projects)
@@ -204,11 +205,13 @@ before layers configuration."
    dotspacemacs-default-package-repository nil
    )
   ;; User initialization goes here
-  (setq server-use-tcp t
-        server-host "127.0.0.1"
-        server-name "emacs-server"
-        server-auth-dir (expand-file-name "server"
-                                          tbh-emacs-d-dir))
+  (setq-default server-use-tcp t
+                server-host "127.0.0.1"
+                server-name "emacs-server"
+                server-auth-dir (expand-file-name "server"
+                                                  tbh-emacs-d-dir))
+
+  (setq-default git-magit-status-fullscreen t)
 
   ;; If a system-specific init function exists, call it
   (if (fboundp 'tbh/dotspacemacs/init)
@@ -217,18 +220,19 @@ before layers configuration."
 
 ;; Helpful function to add home directory subdirectories to magit-repo-dirs
 (defun tbh-add-magit-repo-dirs (dirs)
-  (when (not (boundp 'magit-repo-dirs))
-    (setq magit-repo-dirs '()))
+  (when (not (boundp 'magit-repository-directories))
+    (setq magit-repository-directories '()))
   (dolist (dir dirs)
     (let ((full-path (expand-file-name dir tbh-home-dir)))
       (when (file-directory-p full-path)
-        (add-to-list 'magit-repo-dirs full-path)))))
+        (add-to-list 'magit-repository-directories full-path)))))
 
 (defun dotspacemacs/config ()
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
-  (setq epg-gpg-program "gpg2"
+  (setq dired-listing-switches "-aBhl  --group-directories-first"
+        epg-gpg-program "gpg2"
         user-full-name "Travis B. Hartwell"
         user-mail-address "nafai@travishartwell.net"
         vc-follow-symlinks t)
