@@ -13,6 +13,8 @@
            lua
            nixos
            purescript
+           (ranger :varables
+                   ranger-show-preview t)
            ruby
            )))
     (dolist (layer local-configuration-layers)
@@ -28,4 +30,5 @@ This function is called at the very end of Spacemacs initialization after
 layers configuration, after the general dotspacemacs/config."
   (setq google-contacts-message-use-primary nil)
   (setq ledger-post-amount-alignment-column 68)
+  (setq ranger-cleanup-on-disable t)
   (tbh-add-magit-repo-dirs '("Documents/" "Third-Party/" "Work/")))

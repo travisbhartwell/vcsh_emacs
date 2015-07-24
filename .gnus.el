@@ -17,6 +17,8 @@
       message-send-mail-function 'smtpmail-send-it
       mm-text-html-renderer 'w3m
       mm-discouraged-alternatives '("text/html" "text/richtext")
+      mml2015-signers '("23562D0B")
+      mml2015-encrypt-to-self t
       smtpmail-auth-credentials "~/.authinfo.gpg"
       smtpmail-default-smtp-server "smtp.gmail.com"
       smtpmail-local-domain "travishartwell.net"
@@ -31,3 +33,4 @@
                                                      (nnimap-stream shell)
                                                      (nnir-search-engine imap)))
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+(add-hook 'message-setup-hook 'mml-secure-message-encrypt)

@@ -235,7 +235,8 @@ before layers configuration."
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
-  (setq dired-listing-switches "-aBhl  --group-directories-first"
+  (setq company-tooltip-align-annotations t
+        dired-listing-switches "-aBhl  --group-directories-first"
         epg-gpg-program "gpg2"
         user-full-name "Travis B. Hartwell"
         user-mail-address "nafai@travishartwell.net"
