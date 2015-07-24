@@ -1,7 +1,7 @@
 ;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
-;; Constsnts I use to refer to my system
+;; Constants I use to refer to my system
 (defconst tbh-hostname
   (car (split-string system-name "\\." t))
   "The hostname for the current system.")
@@ -51,9 +51,11 @@
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-enable-help-tooltip t)
      better-defaults
      emacs-lisp
+     evil-commentary
      extra-langs
      git
      github
@@ -113,14 +115,14 @@ before layers configuration."
    dotspacemacs-startup-banner 'random
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'."
-   dotspacemacs-startup-lists '(recents projects)
+   dotspacemacs-startup-lists '(recents bookmarks projects)
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(solarized-light
-                         solarized-dark
+   dotspacemacs-themes '(spacemacs-dark
                          spacemacs-light
-                         spacemacs-dark
+                         solarized-light
+                         solarized-dark
                          leuven
                          monokai
                          zenburn)
@@ -184,15 +186,16 @@ before layers configuration."
    ;; Transparency can be toggled through `toggle-transparency'.
    dotspacemacs-inactive-transparency 90
    ;; If non nil unicode symbols are displayed in the mode line.
-   dotspacemacs-mode-line-unicode-symbols t
+   dotspacemacs-mode-line-unicode-symbols nil
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters the
    ;; point when it reaches the top or bottom of the screen.
    dotspacemacs-smooth-scrolling t
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    dotspacemacs-smartparens-strict-mode nil
-   ;; Select a scope to highlight delimiters. Possible value is `all',
-   ;; `current' or `nil'. Default is `all'
+   ;; Select a scope to highlight delimiters. Possible values are `any',
+   ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
+   ;; emphasis the current one).
    dotspacemacs-highlight-delimiters 'all
    ;; If non nil advises quit functions to keep server open when quitting.
    dotspacemacs-persistent-server nil
@@ -210,8 +213,9 @@ before layers configuration."
                 server-name "emacs-server"
                 server-auth-dir (expand-file-name "server"
                                                   tbh-emacs-d-dir))
-
+  (setq-default doc-view-continuous t)
   (setq-default git-magit-status-fullscreen t)
+  (setq-default helm-echo-input-in-header-line nil)
 
   ;; If a system-specific init function exists, call it
   (if (fboundp 'tbh/dotspacemacs/init)
