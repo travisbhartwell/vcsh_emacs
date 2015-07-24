@@ -4,6 +4,8 @@
 
 (setq epa-file-cache-passphrase-for-symmetric-encryption t
       gnus-ignored-from-addresses "nafai"
+      ;; Disable archiving, since sending with smtp to gmail automatically adds it to sent mail
+      gnus-message-archive-group nil
       gnus-posting-styles '(((header "to" "nafai@travishartwell.net")
                              (address "nafai@travishartwell.net")))
       gnus-select-method '(nntp "news.gmane.org")
