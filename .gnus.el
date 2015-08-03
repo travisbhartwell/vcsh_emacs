@@ -10,7 +10,6 @@
                              (address "nafai@travishartwell.net")))
       gnus-select-method '(nntp "news.gmane.org")
       gnus-summary-thread-gathering-function 'gnus-gather-threads-by-subject
-      gnus-thread-sort-functions '((not gnus-thread-sort-by-date))
       gnus-thread-hide-subtree t
       gnus-thread-ignore-subject t
       gnus-use-cache t
@@ -34,3 +33,6 @@
                                                      (nnir-search-engine imap)))
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 (add-hook 'message-setup-hook 'mml-secure-message-encrypt)
+
+;; Exclude Gnus files from the recentf list
+(add-to-list 'recentf-exclude ".*/\\.news.*")

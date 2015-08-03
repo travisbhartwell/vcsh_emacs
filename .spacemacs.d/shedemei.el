@@ -8,19 +8,19 @@
            eyebrowse
            finance
            gnus
-           haskell
+           (haskell :variables
+                    haskell-enable-ghc-mod-support nil)
            javascript
            lua
-           nixos
            purescript
-           (ranger :varables
+           (ranger :variables
                    ranger-show-preview t)
            ruby
            )))
     (dolist (layer local-configuration-layers)
       (add-to-list 'dotspacemacs-configuration-layers layer)))
 
-  (let ((local-additional-packages '(google-contacts w3m)))
+  (let ((local-additional-packages '(google-contacts visual-fill-column w3m)))
     (dolist (package local-additional-packages)
       (add-to-list 'dotspacemacs-additional-packages package))))
 
@@ -31,4 +31,6 @@ layers configuration, after the general dotspacemacs/config."
   (setq google-contacts-message-use-primary nil)
   (setq ledger-post-amount-alignment-column 68)
   (setq ranger-cleanup-on-disable t)
+  (setq find-function-C-source-directory (expand-file-name "Third-Party/emacs/emacs/src" tbh-home-dir))
+  (add-hook 'visual-line-mode-hook 'visual-fill-column-mode)
   (tbh-add-magit-repo-dirs '("Documents/" "Third-Party/" "Work/")))

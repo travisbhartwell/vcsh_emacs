@@ -62,6 +62,7 @@
      (ibuffer :variables
               ibuffer-group-buffers-by 'projects)
      markdown
+     nixos
      org
      search-engine
      (shell :variables
@@ -112,7 +113,7 @@ before layers configuration."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed.
-   dotspacemacs-startup-banner 'random
+   dotspacemacs-startup-banner 'official
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'."
    dotspacemacs-startup-lists '(recents bookmarks projects)
