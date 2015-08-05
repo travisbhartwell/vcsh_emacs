@@ -11,12 +11,16 @@
   "The full path of the user's home directory.")
 
 (defconst tbh-emacs-d-dir
-  (expand-file-name ".emacs.d" tbh-home-dir)
+  (expand-file-name ".emacs.d/" tbh-home-dir)
   "Top level directory for local configuration and code.")
 
 (defconst tbh-spacemacs-d-dir
-  (expand-file-name ".spacemacs.d" tbh-home-dir)
+  (expand-file-name ".spacemacs.d/" tbh-home-dir)
   "Top level directory for local Spacemacs configuration and code.")
+
+(defconst tbh-private-spacemacs-layers-dir
+  (expand-file-name "layers/" tbh-spacemacs-d-dir)
+  "Directory for storying private Spacemacs layers.")
 
 ;; Load system specific config, if it exists
 (let ((tbh-system-specific-config
@@ -41,7 +45,7 @@
   (setq-default
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '()
+   dotspacemacs-configuration-layer-path `(,tbh-private-spacemacs-layers-dir)
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
