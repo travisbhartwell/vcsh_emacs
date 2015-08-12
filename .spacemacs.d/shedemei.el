@@ -31,6 +31,7 @@ This function is called at the very end of Spacemacs initialization after
 layers configuration, after the general dotspacemacs/config."
   (setq google-contacts-message-use-primary nil)
   (setq ledger-post-amount-alignment-column 68)
+  (setq oauth2-token-file (expand-file-name "oauth2.plstore" spacemacs-cache-directory))
   (setq ranger-cleanup-on-disable t)
   (setq find-function-C-source-directory (expand-file-name "Third-Party/emacs/emacs/src" tbh-home-dir))
   (add-hook 'visual-line-mode-hook 'visual-fill-column-mode)
