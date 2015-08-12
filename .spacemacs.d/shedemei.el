@@ -16,6 +16,7 @@
            (ranger :variables
                    ranger-show-preview t)
            ruby
+           weechat
            )))
     (dolist (layer local-configuration-layers)
       (add-to-list 'dotspacemacs-configuration-layers layer)))

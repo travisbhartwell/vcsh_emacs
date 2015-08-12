@@ -4,5 +4,6 @@
 !/.spacemacs
 !/.spacemacs.d
 !/.spacemacs.d/*
+!/.spacemacs.d/layers/**
 !/.gnus.el
 !/.dovecot-wrapper
