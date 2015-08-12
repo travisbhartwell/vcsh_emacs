@@ -51,7 +51,7 @@
           weechat-sync-buffer-read-status t
           weechat-host-default "localhost"
           weechat-port-default 8001
-          weechat-tracking-types '(:message :hilight))
+          weechat-tracking-types '(:message :highlight))
     ;; show-smartparens doesn't interact well with this mode
     (add-hook 'weechat-mode-hook 'turn-off-show-smartparens-mode)
     (push 'weechat-mode evil-insert-state-modes)
