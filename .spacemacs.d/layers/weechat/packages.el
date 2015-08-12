@@ -52,7 +52,8 @@
           weechat-host-default "localhost"
           weechat-port-default 8001
           weechat-tracking-types '(:message :hilight))
-    (add-hook 'weechat-mode-hook 'visual-line-mode)
+    ;; show-smartparens doesn't interact well with this mode
+    (add-hook 'weechat-mode-hook 'turn-off-show-smartparens-mode)
     (push 'weechat-mode evil-insert-state-modes)
     :config
     ;; Does this belong here or in the :config of weechat/init-tracking?
