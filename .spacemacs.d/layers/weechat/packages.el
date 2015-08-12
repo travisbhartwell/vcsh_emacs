@@ -48,11 +48,12 @@
       (push 'weechat-complete weechat-modules))
     (setq weechat-auto-monitor-buffers t
           weechat-sync-active-buffer t
+          weechat-sync-buffer-read-status t
           weechat-host-default "localhost"
-          weechat-port-default 8001)
+          weechat-port-default 8001
+          weechat-tracking-types '(:message :hilight))
     (add-hook 'weechat-mode-hook 'visual-line-mode)
     (push 'weechat-mode evil-insert-state-modes)
     :config
-    (setq weechat-tracking-types '(:message :hilight))
     ;; Does this belong here or in the :config of weechat/init-tracking?
     (tracking-mode)))
