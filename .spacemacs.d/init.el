@@ -60,7 +60,6 @@
      better-defaults
      emacs-lisp
      evil-commentary
-     extra-langs
      git
      github
      (ibuffer :variables
