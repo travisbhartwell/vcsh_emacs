@@ -42,7 +42,7 @@
                             weechat-color
                             weechat-tracking
                             ))
-    (when (configuration-layer/layer-usedp 'syntax-checking)
+    (when (configuration-layer/layer-usedp 'spell-checking)
       (push 'weechat-spelling weechat-modules))
     (when (configuration-layer/layer-usedp 'auto-completion)
       (push 'weechat-complete weechat-modules))
