@@ -67,11 +67,11 @@
      markdown
      nixos
      org
-     search-engine
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom
             shell-default-term-shell "/run/current-system/sw/bin/bash")
+     spell-checking
      syntax-checking
      version-control
      )
@@ -105,8 +105,10 @@ before layers configuration."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
-   ;; Either `vim' or `emacs'. Evil is always enabled but if the variable
-   ;; is `emacs' then the `holy-mode' is enabled at startup.
+   ;; One of `vim', `emacs' or `hybrid'. Evil is always enabled but if the
+   ;; variable is `emacs' then the `holy-mode' is enabled at startup. `hybrid'
+   ;; uses emacs key bindings for vim's insert mode, but otherwise leaves evil
+   ;; unchanged.
    dotspacemacs-editing-style 'vim
    ;; If non nil output loading progress in `*Messages*' buffer.
    dotspacemacs-verbose-loading nil
