@@ -52,6 +52,28 @@
           weechat-host-default "localhost"
           weechat-port-default 8001
           weechat-tracking-types '(:message :highlight))
+
+    ;; TODO: Finish tweaking the color list based on the theme
+    ;; TODO: Have predefined color schemes for spacemacs light
+    ;;       and dark themes and set appropriately
+    (setq weechat-color-list '(unspecified
+                               "black"
+                               "dark gray"
+                               "dark red"
+                               "#d70000" ;; "red"
+                               "#67b11d" ;; "dark green"
+                               "#5faf00" ;; "light green"
+                               "brown"
+                               "#875f00" ;; "yellow"
+                               "#268bd2" ;; "dark blue"
+                               "light blue"
+                               "dark magenta"
+                               "magenta"
+                               "dark cyan"
+                               "light cyan"
+                               "gray"
+                               "white"))
+
     ;; show-smartparens doesn't interact well with this mode
     (add-hook 'weechat-mode-hook 'turn-off-show-smartparens-mode)
     (push 'weechat-mode evil-insert-state-modes)
