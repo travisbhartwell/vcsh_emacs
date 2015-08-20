@@ -5,6 +5,7 @@
          '(
            (c-c++ :variables
                   c-c++-enable-clang-support t)
+           erlang
            eyebrowse
            finance
            gnus
