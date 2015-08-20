@@ -15,7 +15,7 @@
            purescript
            (ranger :variables
                    ranger-show-preview t)
-           ruby
+           tbh-org
            weechat
            )))
     (dolist (layer local-configuration-layers)
