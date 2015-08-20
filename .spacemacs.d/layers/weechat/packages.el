@@ -21,7 +21,6 @@
 ;; List of packages to exclude.
 (setq weechat-excluded-packages '())
 
-;; TODO: Should I unset the tracking-mode-map?
 (defun weechat/init-tracking ()
   "Initialize tracking"
   (use-package tracking
@@ -51,28 +50,31 @@
           weechat-sync-buffer-read-status t
           weechat-host-default "localhost"
           weechat-port-default 8001
-          weechat-tracking-types '(:message :highlight))
+          weechat-tracking-types '(:highlight :message))
 
-    ;; TODO: Finish tweaking the color list based on the theme
     ;; TODO: Have predefined color schemes for spacemacs light
     ;;       and dark themes and set appropriately
-    (setq weechat-color-list '(unspecified
-                               "black"
-                               "dark gray"
-                               "dark red"
-                               "#d70000" ;; "red"
-                               "#67b11d" ;; "dark green"
-                               "#5faf00" ;; "light green"
-                               "brown"
-                               "#875f00" ;; "yellow"
-                               "#268bd2" ;; "dark blue"
-                               "light blue"
-                               "dark magenta"
-                               "magenta"
-                               "dark cyan"
-                               "light cyan"
-                               "gray"
-                               "white"))
+    ;; If the highest precedence enabled theme is spacemacs-dark,
+    ;; pick colors that fit better with the theme
+    (when (eq 'spacemacs-dark (car custom-enabled-themes))
+      ;; TODO: Finish tweaking the color list based on the theme
+      (setq weechat-color-list '(unspecified
+                                 "black"
+                                 "dark gray"
+                                 "dark red"
+                                 "#d70000" ;; "red"
+                                 "#67b11d" ;; "dark green"
+                                 "#5faf00" ;; "light green"
+                                 "brown"
+                                 "#875f00" ;; "yellow"
+                                 "#268bd2" ;; "dark blue"
+                                 "light blue"
+                                 "dark magenta"
+                                 "magenta"
+                                 "dark cyan"
+                                 "light cyan"
+                                 "gray"
+                                 "white")))
 
     ;; show-smartparens doesn't interact well with this mode
     (add-hook 'weechat-mode-hook 'turn-off-show-smartparens-mode)
