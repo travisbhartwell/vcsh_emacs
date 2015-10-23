@@ -15,6 +15,7 @@
 (setq tbh-org-packages
       '(
         org
+        org-plus-contrib
         ))
 
 ;; List of packages to exclude.
@@ -38,6 +39,12 @@
           (todo time-up todo-state-down category-keep)
           (tags time-up category-keep)
           (search category-keep)))
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((sh . t)
+     (emacs-lisp . t)))
+  (setq org-confirm-babel-evaluate t)
 
   (setq org-todo-keywords
         '((sequence "TODO(t)" "STARTED(s!)" "|" "DONE(d!/!)")
@@ -84,7 +91,7 @@
             "Notes")
            "* %U                   :NOTE:\n\n  %?")
           ("j" "Journal" entry
-           (file+headline
+           (file+datetree
             (expand-file-name "journal.org" org-directory)
             "Entries")
            "* %U\n\n  %?\n")
@@ -104,3 +111,41 @@
         "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
   (setq org-global-properties
         '(("Effort_ALL" . "0:10 0:30 1:00 2:00 3:00 4:00 5:00 6:00 8:00"))))
+
+(defun tbh-org/post-init-org-plus-contrib ()
+  (with-eval-after-load 'ox-latex
+    ;; Use the listings package to syntax highlight code
+    (setq org-latex-listings t)
+    (add-to-list 'org-latex-packages-alist '("" "listings"))
+    (add-to-list 'org-latex-packages-alist '("" "color"))
+
+    (setq org-latex-classes
+          (cons '("tbharticle"
+                  "\\documentclass[10pt,letterpaper]{article}
+\\usepackage[letterpaper,includeheadfoot,top=0.5in,bottom=0.5in,left=0.75in,right=0.75in]{geometry}
+\\usepackage[utf8]{inputenc}
+\\usepackage[T1]{fontenc}
+\\setlength{\\parindent}{0pt}
+\\setlength{\\parskip}{10pt}
+\\usepackage[scaled]{helvet}
+\\renewcommand*\\familydefault{\\sfdefault}
+\\usepackage{lastpage}
+\\usepackage{fancyhdr}
+\\pagestyle{fancy}
+\\usepackage{hyperref}
+\\hypersetup{colorlinks,linkcolor=blue}
+\\renewcommand{\\headrulewidth}{1pt}
+\\renewcommand{\\footrulewidth}{0.5pt}
+% Default footer
+\\fancyfoot[L]{\\small \\jobname \\\\ \\today}
+\\fancyfoot[C]{\\small Page \\thepage\\ of \\pageref{LastPage}}"
+                  ("\\section{%s}" . "\\section*{%s}")
+                  ("\\subsection{%s}" . "\\subsection*{%s}")
+                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+                nil))))
+;; TODO:
+;; Add support for org-gcal
+;; Make agenda view show day planner view
+;; Handle org-capture better with emacsclient

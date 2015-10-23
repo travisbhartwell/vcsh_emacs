@@ -8,14 +8,18 @@
            erlang
            eyebrowse
            finance
+           go
            gnus
            (haskell :variables
                     haskell-enable-ghc-mod-support nil)
            javascript
            lua
+           ocaml
+           pandoc
            purescript
            (ranger :variables
                    ranger-show-preview t)
+           rust
            tbh-org
            weechat
            )))
@@ -26,10 +30,10 @@
     (dolist (package local-additional-packages)
       (add-to-list 'dotspacemacs-additional-packages package))))
 
-(defun tbh/dotspacemacs/config ()
+(defun tbh/dotspacemacs/user-config ()
   "Local configuration function.
 This function is called at the very end of Spacemacs initialization after
-layers configuration, after the general dotspacemacs/config."
+layers configuration, after the general dotspacemacs/user-config."
   (setq google-contacts-message-use-primary nil)
   (setq ledger-post-amount-alignment-column 68)
   (setq oauth2-token-file (expand-file-name "oauth2.plstore" spacemacs-cache-directory))
