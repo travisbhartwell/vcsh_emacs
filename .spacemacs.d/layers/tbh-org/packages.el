@@ -42,8 +42,9 @@
 
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((sh . t)
-     (emacs-lisp . t)))
+   '((emacs-lisp . t)
+     (ledger . t)
+     (sh . t)))
   (setq org-confirm-babel-evaluate t)
 
   (setq org-todo-keywords

@@ -20,7 +20,9 @@
            (ranger :variables
                    ranger-show-preview t)
            rust
+           semantic
            tbh-org
+           vagrant
            weechat
            )))
     (dolist (layer local-configuration-layers)
