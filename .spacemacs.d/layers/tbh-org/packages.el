@@ -34,6 +34,14 @@
   (setq org-agenda-files (when (file-directory-p org-directory)
                            (find-lisp-find-files org-directory "\.org$")))
 
+  (spacemacs/declare-prefix "oi" "Org Inbox")
+  (evil-leader/set-key
+    "oit" (lambda () (interactive) (bookmark-jump "Tasks Inbox"))
+    "oin" (lambda () (interactive) (bookmark-jump "Notes Inbox")))
+  (which-key-add-key-based-replacements
+    (concat dotspacemacs-leader-key " oit") "Tasks Inbox"
+    (concat dotspacemacs-leader-key " oin") "Notes Inbox")
+
   (setq org-agenda-sorting-strategy
         '((agenda time-up todo-state-down)
           (todo time-up todo-state-down category-keep)

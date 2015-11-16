@@ -41,5 +41,15 @@ layers configuration, after the general dotspacemacs/user-config."
         ledger-post-amount-alignment-column 68
         oauth2-token-file (expand-file-name "oauth2.plstore" spacemacs-cache-directory)
         ranger-cleanup-on-disable t)
+
+  (add-to-list 'org-agenda-files (expand-file-name "Documents/Planning/Work/Basho/work-inbox.org" tbh-home-dir))
+  (spacemacs/declare-prefix "ow" "Org Work Inbox")
+  (evil-leader/set-key
+    "owt" (lambda () (interactive) (bookmark-jump "Work Tasks Inbox"))
+    "own" (lambda () (interactive) (bookmark-jump "Work Notes Inbox")))
+  (which-key-add-key-based-replacements
+    (concat dotspacemacs-leader-key " owt") "Work Tasks Inbox"
+    (concat dotspacemacs-leader-key " own") "Work Notes Inbox")
+
   (add-hook 'visual-line-mode-hook 'visual-fill-column-mode)
   (tbh-add-magit-repo-dirs '("Documents/" "Third-Party/" "Work/")))
