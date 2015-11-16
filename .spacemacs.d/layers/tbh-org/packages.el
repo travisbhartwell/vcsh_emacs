@@ -69,7 +69,9 @@
         org-agenda-skip-scheduled-if-done t
         org-agenda-span 'day)
 
-  (setq org-refile-targets '((org-agenda-files :maxlevel . 5)
+  ;; Refiling
+  (setq org-outline-path-complete-in-steps nil
+        org-refile-targets '((org-agenda-files :maxlevel . 5)
                              (nil :maxlevel . 5))
         org-refile-use-outline-path 'file)
 
