@@ -35,7 +35,7 @@
                            (find-lisp-find-files org-directory "\.org$")))
 
   (spacemacs/declare-prefix "oi" "Org Inbox")
-  (evil-leader/set-key
+  (spacemacs/set-leader-keys
     "oit" (lambda () (interactive) (bookmark-jump "Tasks Inbox"))
     "oin" (lambda () (interactive) (bookmark-jump "Notes Inbox")))
   (which-key-add-key-based-replacements

@@ -3,6 +3,7 @@
   "Local configuration layers declaration"
   (let ((local-configuration-layers
          '(
+           ansible
            (c-c++ :variables
                   c-c++-enable-clang-support t)
            erlang
@@ -14,7 +15,6 @@
                     haskell-enable-ghc-mod-support nil)
            javascript
            lua
-           ocaml
            pandoc
            purescript
            (ranger :variables
@@ -23,7 +23,7 @@
            semantic
            tbh-org
            vagrant
-           weechat
+           ;; weechat
            )))
     (dolist (layer local-configuration-layers)
       (add-to-list 'dotspacemacs-configuration-layers layer)))
@@ -44,7 +44,7 @@ layers configuration, after the general dotspacemacs/user-config."
 
   (add-to-list 'org-agenda-files (expand-file-name "Documents/Planning/Work/Basho/work-inbox.org" tbh-home-dir))
   (spacemacs/declare-prefix "ow" "Org Work Inbox")
-  (evil-leader/set-key
+  (spacemacs/set-leader-keys
     "owt" (lambda () (interactive) (bookmark-jump "Work Tasks Inbox"))
     "own" (lambda () (interactive) (bookmark-jump "Work Notes Inbox")))
   (which-key-add-key-based-replacements

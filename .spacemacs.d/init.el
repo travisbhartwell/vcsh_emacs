@@ -87,7 +87,8 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '((magit-vcsh :location (recipe :fetcher github
+                                                                    :repo "vanicat/magit-vcsh")))
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -107,6 +108,15 @@ values."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
+   ;; If non nil ELPA repositories are contacted via HTTPS whenever it's
+   ;; possible. Set it to nil if you have no way to use HTTPS in your
+   ;; environment, otherwise it is strongly recommended to let it set to t.
+   ;; This variable has no effect if Emacs is launched with the parameter
+   ;; `--insecure' which forces the value of this variable to nil.
+   ;; (default t)
+   dotspacemacs-elpa-https t
+   ;; Maximum allowed time in seconds to contact an ELPA repository.
+   dotspacemacs-elpa-timeout 5
    ;; One of `vim', `emacs' or `hybrid'. Evil is always enabled but if the
    ;; variable is `emacs' then the `holy-mode' is enabled at startup. `hybrid'
    ;; uses emacs key bindings for vim's insert mode, but otherwise leaves evil
@@ -158,6 +168,14 @@ values."
    ;; Major mode leader key accessible in `emacs state' and `insert state'.
    ;; (default "C-M-m)
    dotspacemacs-major-mode-emacs-leader-key "C-M-m"
+   ;; These variables control whether separate commands are bound in the GUI to
+   ;; the key pairs C-i, TAB and C-m, RET.
+   ;; Setting it to a non-nil value, allows for separate commands under <C-i>
+   ;; and TAB or <C-m> and RET.
+   ;; In the terminal, these pairs are generally indistinguishable, so this only
+   ;; works in the GUI. (default nil)
+   dotspacemacs-distinguish-gui-tab nil
+   ;; (Not implemented) dotspacemacs-distinguish-gui-ret nil
    ;; The command key used for Evil commands (ex-commands) and
    ;; Emacs commands (M-x).
    ;; By default the command key is `:' so ex-commands are executed like in Vim
@@ -264,8 +282,9 @@ values."
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
-It is called immediately after `dotspacemacs/init'.  You are free to put any
-user code."
+It is called immediately after `dotspacemacs/init'.  You are free to put almost any
+user code here.  The exception is org related code, which should be placed in
+`dotspacemacs/user-config'."
   (setq-default server-use-tcp t
                 server-host "127.0.0.1"
                 server-name "emacs-server"
