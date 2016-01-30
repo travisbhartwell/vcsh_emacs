@@ -15,6 +15,7 @@
                     haskell-enable-ghc-mod-support nil)
            javascript
            lua
+           nixos
            pandoc
            purescript
            (ranger :variables
