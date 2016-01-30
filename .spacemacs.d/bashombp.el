@@ -4,6 +4,7 @@
   (let ((local-configuration-layers
          '(
            ansible
+           dockerfile
            erlang
            go
            javascript
