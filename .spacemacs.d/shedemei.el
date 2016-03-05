@@ -54,3 +54,10 @@ layers configuration, after the general dotspacemacs/user-config."
 
   (add-hook 'visual-line-mode-hook 'visual-fill-column-mode)
   (tbh-add-magit-repo-dirs '("Documents/" "Third-Party/" "Work/")))
+
+(with-eval-after-load 'ledger-mode
+  (defun tbh-generate-financial-dashboard-html ()
+    (with-current-buffer (find-file-noselect "/home/nafai/Documents/Planning/Org/financial-dashboard.org")
+      (setq-local org-confirm-babel-evaluate nil)
+      (org-babel-execute-buffer)
+      (org-html-export-to-html))))
