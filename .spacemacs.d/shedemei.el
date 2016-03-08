@@ -57,7 +57,11 @@ layers configuration, after the general dotspacemacs/user-config."
 
 (with-eval-after-load 'ledger-mode
   (defun tbh-generate-financial-dashboard-html ()
+    (interactive)
     (with-current-buffer (find-file-noselect "/home/nafai/Documents/Planning/Org/financial-dashboard.org")
       (setq-local org-confirm-babel-evaluate nil)
       (org-babel-execute-buffer)
-      (org-html-export-to-html))))
+      (org-html-export-to-html)))
+  (add-hook 'ledger-mode-hook
+            (lambda ()
+              (add-hook 'after-save-hook 'tbh-generate-financial-dashboard-html nil 'make-it-local))))

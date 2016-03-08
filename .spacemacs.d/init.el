@@ -29,6 +29,21 @@
   (if (file-readable-p tbh-system-specific-config)
       (load-file tbh-system-specific-config)))
 
+;; Set up appropriate function advice
+(defmacro tbh/wrap-func (func)
+  (let ((advice-name (intern (format "%s--advice" func)))
+        (target-name (intern (format "tbh/%s" func))))
+    `(progn
+       (defun ,advice-name (&rest args)
+         (when (fboundp ',target-name)
+           (apply ',target-name args)))
+       (advice-add ',func :after ',advice-name))))
+
+(tbh/wrap-func dotspacemacs/layers)
+(tbh/wrap-func dotspacemacs/init)
+(tbh/wrap-func dotspacemacs/user-init)
+(tbh/wrap-func dotspacemacs/user-config)
+
 ;; Generally Useful Functions
 (defun unfill-paragraph ()
   (interactive)
@@ -98,10 +113,7 @@ values."
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
-   dotspacemacs-delete-orphan-packages t)
-   ;; If a system-specific layers configuration function exist, call it
-   (if (fboundp 'tbh/dotspacemacs/layers)
-       (tbh/dotspacemacs/layers)))
+   dotspacemacs-delete-orphan-packages t))
 
 (defun dotspacemacs/init ()
   "Initialization function.
@@ -294,10 +306,7 @@ values."
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
    dotspacemacs-whitespace-cleanup 'changed
-   )
-  ;; If a system-specific init configuration function exist, call it
-  (if (fboundp 'tbh/dotspacemacs/init)
-      (tbh/dotspacemacs/init)))
+   ))
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
@@ -314,11 +323,7 @@ in `dotspacemacs/user-config'."
   (setq-default helm-echo-input-in-header-line nil)
   ;; Disable this so it doesn't try to open connections to TRAMP-accessed files
   (setq recentf-auto-cleanup 'never)
-
-  ;; If a system-specific user-init configuration function exist, call it
-  (if (fboundp 'tbh/dotspacemacs/user-init)
-      (tbh/dotspacemacs/user-init))
-)
+  )
 
 ;; Helpful function to add home directory subdirectories to magit-repo-dirs
 (defun tbh-add-magit-repo-dirs (dirs)
@@ -340,11 +345,7 @@ layers configuration. You are free to put any user code."
         user-mail-address "nafai@travishartwell.net"
         vc-follow-symlinks t)
   (tbh-add-magit-repo-dirs '("Projects/"))
-
-  ;; If a system specific user-config function exists, call it
-  (if (fboundp 'tbh/dotspacemacs/user-config)
-      (tbh/dotspacemacs/user-config))
-)
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
