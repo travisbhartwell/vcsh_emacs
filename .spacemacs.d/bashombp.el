@@ -23,6 +23,10 @@
     (dolist (package local-additional-packages)
       (add-to-list 'dotspacemacs-additional-packages package))))
 
+(defun tbh/dotspacemacs/init ()
+    (setq-default
+     dotspacemacs-fullscreen-at-startup t))
+
 (defun tbh/dotspacemacs/user-config ()
   "Local configuration function.
 This function is called at the very end of Spacemacs initialization after
@@ -42,4 +46,19 @@ layers configuration, after the general dotspacemacs/user-config."
     (concat dotspacemacs-leader-key " own") "Work Notes Inbox")
 
   (add-hook 'visual-line-mode-hook 'visual-fill-column-mode)
-  (tbh-add-magit-repo-dirs '("Documents/" "Third-Party/" "Work/")))
+  (tbh-add-magit-repo-dirs '("Documents/" "Third-Party/" "Work/"))
+  (spacemacs|define-custom-layout "@Planning"
+    :binding "p"
+    :body
+    (let*
+        ((timeclock-buffer (find-file "~/Documents/Planning/Org/timeclock.org"))
+         (inbox-buffer (find-file "~/Documents/Planning/Org/inbox.org")))
+      (switch-to-buffer timeclock-buffer)
+      (split-window-right)
+      (switch-to-buffer-other-window inbox-buffer)
+      (select-window (get-buffer-window timeclock-buffer))
+      (goto-char (point-min))
+      (re-search-forward "* Reports")
+      (split-window-below)
+      (org-tree-to-indirect-buffer)
+      (goto-char (point-min)))))
