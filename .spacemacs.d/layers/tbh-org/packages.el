@@ -55,6 +55,8 @@
      (sh . t)))
   (setq org-confirm-babel-evaluate t)
 
+  (setq org-clock-mode-line-total 'today)
+
   (setq org-todo-keywords
         '((sequence "TODO(t)" "STARTED(s!)" "|" "DONE(d!/!)")
           (sequence "WAITING(w@/!)" "SOMEDAY(S!)" "OPEN(O@)" "|"
