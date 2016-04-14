@@ -4,13 +4,17 @@
   (let ((local-configuration-layers
          '(
            ansible
+           dash
            dockerfile
            erlang
            go
            javascript
+           lua
            osx
+           python
            (ranger :variables
                    ranger-show-preview t)
+           ruby
            semantic
            tbh-org
            vagrant
@@ -19,13 +23,11 @@
     (dolist (layer local-configuration-layers)
       (add-to-list 'dotspacemacs-configuration-layers layer)))
 
-  (let ((local-additional-packages '(visual-fill-column w3m)))
+  (let ((local-additional-packages '(docker
+                                     visual-fill-column
+                                     w3m)))
     (dolist (package local-additional-packages)
       (add-to-list 'dotspacemacs-additional-packages package))))
-
-(defun tbh/dotspacemacs/init ()
-    (setq-default
-     dotspacemacs-fullscreen-at-startup t))
 
 (defun tbh/dotspacemacs/user-config ()
   "Local configuration function.
@@ -47,10 +49,14 @@ layers configuration, after the general dotspacemacs/user-config."
 
   (add-hook 'visual-line-mode-hook 'visual-fill-column-mode)
   (tbh-add-magit-repo-dirs '("Documents/" "Third-Party/" "Work/"))
+  (with-temp-buffer
+    (shell-command "docker-machine env --shell emacs" (current-buffer))
+    (eval-buffer))
+  (setq anaconda-mode-server-script "/usr/local/lib/python2.7/site-packages/anaconda_mode.py")
   (spacemacs|define-custom-layout "@Planning"
     :binding "p"
     :body
-    (let*
+    (let
         ((timeclock-buffer (find-file "~/Documents/Planning/Org/timeclock.org"))
          (inbox-buffer (find-file "~/Documents/Planning/Org/inbox.org")))
       (switch-to-buffer timeclock-buffer)
