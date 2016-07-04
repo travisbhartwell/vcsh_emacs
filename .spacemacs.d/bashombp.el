@@ -5,17 +5,25 @@
          '(
            ansible
            dash
-           dockerfile
+           docker
            erlang
            go
+           html
+           imenu-list
            javascript
            lua
            osx
+           pdf-tools
            python
            (ranger :variables
                    ranger-show-preview t)
            ruby
            semantic
+           (shell :variables
+                  shell-default-height 30
+                  shell-default-position 'bottom
+                  shell-default-term-shell "/usr/local/bin/bash"
+                  shell-default-shell 'ansi-term)
            tbh-org
            vagrant
            ;; weechat
@@ -23,7 +31,7 @@
     (dolist (layer local-configuration-layers)
       (add-to-list 'dotspacemacs-configuration-layers layer)))
 
-  (let ((local-additional-packages '(docker
+  (let ((local-additional-packages '(kerl
                                      visual-fill-column
                                      w3m)))
     (dolist (package local-additional-packages)
@@ -35,7 +43,9 @@ This function is called at the very end of Spacemacs initialization after
 layers configuration, after the general dotspacemacs/user-config."
   (setq find-function-C-source-directory (expand-file-name "Third-Party/emacs/emacs/src" tbh-home-dir)
         oauth2-token-file (expand-file-name "oauth2.plstore" spacemacs-cache-directory)
+        powerline-default-separator 'alternate
         ranger-cleanup-on-disable t
+        safe-local-variable-values (quote ((magit-commit-arguments "--signoff")))
         user-mail-address "thartwell@contractor.basho.com")
 
   (add-to-list 'org-agenda-files (expand-file-name "Documents/Planning/Work/Basho/work-inbox.org" tbh-home-dir))
@@ -49,9 +59,6 @@ layers configuration, after the general dotspacemacs/user-config."
 
   (add-hook 'visual-line-mode-hook 'visual-fill-column-mode)
   (tbh-add-magit-repo-dirs '("Documents/" "Third-Party/" "Work/"))
-  (with-temp-buffer
-    (shell-command "docker-machine env --shell emacs" (current-buffer))
-    (eval-buffer))
   (setq anaconda-mode-server-script "/usr/local/lib/python2.7/site-packages/anaconda_mode.py")
   (spacemacs|define-custom-layout "@Planning"
     :binding "p"
