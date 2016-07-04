@@ -21,6 +21,12 @@
 ;; List of packages to exclude.
 (setq tbh-org-excluded-packages '())
 
+(defun tbh-org-get-clock-time ()
+  (if (and (fboundp 'org-clocking-p)
+             (org-clocking-p))
+      (substring-no-properties (funcall spaceline-org-clock-format-function))
+    ""))
+
 (defun tbh-org/post-init-org ()
   "Do further personal initialization of org mode."
   (let ((planning-dir (expand-file-name "Documents/Planning/" tbh-home-dir)))
