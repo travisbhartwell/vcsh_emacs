@@ -156,7 +156,7 @@
 \\renewcommand{\\headrulewidth}{1pt}
 \\renewcommand{\\footrulewidth}{0.5pt}
 % Default footer
-\\fancyfoot[L]{\\small \\jobname \\\\ \\today}
+\\fancyfoot[L]{\\small Basho Technologies \\\\ \\today}
 \\fancyfoot[C]{\\small Page \\thepage\\ of \\pageref{LastPage}}"
                   ("\\section{%s}" . "\\section*{%s}")
                   ("\\subsection{%s}" . "\\subsection*{%s}")

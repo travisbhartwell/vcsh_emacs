@@ -4,6 +4,7 @@
   (let ((local-configuration-layers
          '(
            ansible
+           csv
            dash
            docker
            erlang
@@ -75,3 +76,18 @@ layers configuration, after the general dotspacemacs/user-config."
       (split-window-below)
       (org-tree-to-indirect-buffer)
       (goto-char (point-min)))))
+
+(defun tbh/start-presentation ()
+  (interactive)
+  (spacemacs/load-theme 'spacemacs-light)
+  (spacemacs/toggle-vi-tilde-fringe-off)
+  (spacemacs/toggle-line-numbers-off)
+  (spacemacs/toggle-maximize-buffer)
+  (spacemacs/toggle-fill-column-indicator-off)
+  (spacemacs/toggle-frame-fullscreen)
+  (spacemacs/toggle-fringe-off)
+  (find-file "/Users/travisbhartwell/Projects/Presentations/2016-07-16_open-west-spacemacs/presentation.org")
+  (spacemacs/toggle-mode-line-off)
+  (read-only-mode)
+  (goto-char (point-min))
+  (org-present))
