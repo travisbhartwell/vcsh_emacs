@@ -101,7 +101,7 @@ values."
      helm
      (ibuffer :variables
               ibuffer-group-buffers-by 'projects)
-     markdown
+     (markdown :variables markdown-live-preview-engine 'vmd)
      (org :variables org-enable-reveal-js-support t)
      spell-checking
      syntax-checking
@@ -113,7 +113,9 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '((magit-vcsh :location (recipe :fetcher github
                                                                     :repo "vanicat/magit-vcsh")))
-   ;; A list of packages that will not be install and loaded.
+   ;; A list of packages that cannot be updated.
+   dotspacemacs-frozen-packages '()
+   ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '()
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -150,7 +152,7 @@ values."
    ;; If non-nil, a form that evaluates to a package directory. For example, to
    ;; use different package directories for different Emacs versions, set this
    ;; to `emacs-version'.
-   dotspacemacs-elpa-subdirectory nil
+   dotspacemacs-elpa-subdirectory 'emacs-version
    ;; One of `vim', `emacs' or `hybrid'.
    ;; `hybrid' is like `vim' except that `insert state' is replaced by the
    ;; `hybrid state' with `emacs' key bindings. The value can also be a list
