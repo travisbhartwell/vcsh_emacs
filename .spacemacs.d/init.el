@@ -93,7 +93,8 @@ values."
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-snippets-in-popup t)
      better-defaults
-     (colors :variables colors-enable-rainbow-identifiers t)
+     (colors :variables
+             colors-colorize-identifiers 'all)
      emacs-lisp
      evil-commentary
      git
@@ -356,6 +357,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq-default helm-echo-input-in-header-line nil)
   ;; Disable this so it doesn't try to open connections to TRAMP-accessed files
   (setq recentf-auto-cleanup 'never)
+  (setq custom-file "~/.emacs.d/.cache/emacs-custom.el")
+  (load custom-file)
   )
 
 ;; Helpful function to add home directory subdirectories to magit-repo-dirs
