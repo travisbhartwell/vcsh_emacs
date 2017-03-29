@@ -27,6 +27,13 @@
     (dolist (package local-additional-packages)
       (add-to-list 'dotspacemacs-additional-packages package))))
 
+(defun tbh/dotspacemacs/init ()
+  (setq dotspacemacs-default-font '("Source Code Pro"
+                              :size 20
+                              :weight normal
+                              :width normal
+                              :powerline-scale 1.1)))
+
 (defun tbh/dotspacemacs/user-config ()
   "Local configuration function.
 This function is called at the very end of Spacemacs initialization after
