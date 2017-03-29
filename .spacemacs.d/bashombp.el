@@ -4,11 +4,16 @@
   (let ((local-configuration-layers
          '(
            ansible
+           asciidoc
+           (c-c++ :variables
+                  c-c++-enable-clang-support t)
            csv
            dash
            docker
            erlang
            go
+           (haskell :variables
+                    haskell-completion-backend 'intero)
            html
            imenu-list
            javascript
@@ -19,12 +24,15 @@
            (ranger :variables
                    ranger-show-preview t)
            ruby
+           (rust :variables
+                 rust-format-on-save t)
            semantic
            (shell :variables
                   shell-default-height 30
                   shell-default-position 'bottom
                   shell-default-term-shell "/usr/local/bin/bash"
                   shell-default-shell 'ansi-term)
+           sql
            tbh-org
            vagrant
            ;; weechat
@@ -33,6 +41,7 @@
       (add-to-list 'dotspacemacs-configuration-layers layer)))
 
   (let ((local-additional-packages '(kerl
+                                     mips-mode
                                      visual-fill-column
                                      w3m)))
     (dolist (package local-additional-packages)
