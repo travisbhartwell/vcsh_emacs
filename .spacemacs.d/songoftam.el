@@ -3,11 +3,13 @@
   "Local configuration layers declaration"
   (let ((local-configuration-layers
          '(
-           dockerfile
+           csv
+           docker
            finance
            (go :variables go-use-gometalinter t)
            html
            nixos
+           python
            (ranger :variables
                    ranger-show-preview t)
            semantic
@@ -23,7 +25,13 @@
     (dolist (layer local-configuration-layers)
       (add-to-list 'dotspacemacs-configuration-layers layer)))
 
-  (let ((local-additional-packages '(google-contacts visual-fill-column w3m)))
+  (let ((local-additional-packages '((beancount :location (recipe
+                                                           :fetcher bitbucket
+                                                           :repo "blais/beancount"
+                                                           :files ("editors/emacs/beancount.el")))
+                                     google-contacts
+                                     visual-fill-column
+                                     w3m)))
     (dolist (package local-additional-packages)
       (add-to-list 'dotspacemacs-additional-packages package))))
 
@@ -33,6 +41,16 @@
                               :weight normal
                               :width normal
                               :powerline-scale 1.1)))
+
+;; Helpful function to add home directory subdirectories to magit-repo-dirs
+(defun tbh-add-magit-repo-dirs (dirs)
+  (when (not (boundp 'magit-repository-directories))
+    (setq magit-repository-directories '()))
+  (dolist (dir dirs)
+    (let ((full-path (expand-file-name dir)))
+      (when (file-directory-p full-path)
+        (add-to-list 'magit-repository-directories `(,full-path . 3))))))
+
 
 (defun tbh/dotspacemacs/user-config ()
   "Local configuration function.
@@ -47,14 +65,14 @@ layers configuration, after the general dotspacemacs/user-config."
   (add-hook 'visual-line-mode-hook 'visual-fill-column-mode)
   (tbh-add-magit-repo-dirs '("Documents/" "Third-Party/" "Work/")))
 
-(with-eval-after-load 'ledger-mode
-  (defun tbh-generate-financial-dashboard-html ()
-    (interactive)
-    (with-current-buffer (find-file-noselect "/home/nafai/Documents/Planning/Org/financial-dashboard.org")
-      (setq-local org-confirm-babel-evaluate nil)
-      (org-babel-execute-buffer)
-      (org-html-export-to-html)
-      (save-buffer)))
-  (add-hook 'ledger-mode-hook
-            (lambda ()
-              (add-hook 'after-save-hook 'tbh-generate-financial-dashboard-html nil 'make-it-local))))
+;; (with-eval-after-load 'ledger-mode
+;;   (defun tbh-generate-financial-dashboard-html ()
+;;     (interactive)
+;;     (with-current-buffer (find-file-noselect "/home/nafai/Documents/Planning/Org/financial-dashboard.org")
+;;       (setq-local org-confirm-babel-evaluate nil)
+;;       (org-babel-execute-buffer)
+;;       (org-html-export-to-html)
+;;       (save-buffer)))
+;;   (add-hook 'ledger-mode-hook
+;;             (lambda ()
+;;               (add-hook 'after-save-hook 'tbh-generate-financial-dashboard-html nil 'make-it-local))))

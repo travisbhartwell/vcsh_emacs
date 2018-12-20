@@ -14,8 +14,8 @@
 ;; which require an initialization must be listed explicitly in the list.
 (setq tbh-org-packages
       '(
-        org
-        org-plus-contrib
+        (org :location built-in)
+        (ox-latex :location built-in)
         ))
 
 ;; List of packages to exclude.
@@ -58,7 +58,7 @@
    'org-babel-load-languages
    '((emacs-lisp . t)
      (ledger . t)
-     (sh . t)))
+     (shell . t)))
   (setq org-confirm-babel-evaluate t)
 
   (setq org-clock-mode-line-total 'today)
@@ -131,16 +131,18 @@
   (setq org-global-properties
         '(("Effort_ALL" . "0:10 0:30 1:00 2:00 3:00 4:00 5:00 6:00 8:00"))))
 
-(defun tbh-org/post-init-org-plus-contrib ()
-  (with-eval-after-load 'ox-latex
-    ;; Use the listings package to syntax highlight code
-    (setq org-latex-listings t)
-    (add-to-list 'org-latex-packages-alist '("" "listings"))
-    (add-to-list 'org-latex-packages-alist '("" "color"))
+(defun tbh-org/post-init-ox-latex ()
+  (use-package ox-latex
+    :config
+    (progn
+      ;; Use the listings package to syntax highlight code
+      (setq org-latex-listings t)
+      (add-to-list 'org-latex-packages-alist '("" "listings"))
+      (add-to-list 'org-latex-packages-alist '("" "color"))
 
-    (setq org-latex-classes
-          (cons '("tbharticle"
-                  "\\documentclass[10pt,letterpaper]{article}
+      (setq org-latex-classes
+            (cons '("tbharticle"
+                    "\\documentclass[10pt,letterpaper]{article}
 \\usepackage[letterpaper,includeheadfoot,top=0.5in,bottom=0.5in,left=0.75in,right=0.75in]{geometry}
 \\usepackage[utf8]{inputenc}
 \\usepackage[T1]{fontenc}
@@ -163,7 +165,7 @@
                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-                nil))))
+                nil)))))
 ;; TODO:
 ;; Add support for org-gcal
 ;; Make agenda view show day planner view
