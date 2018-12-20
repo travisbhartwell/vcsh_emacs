@@ -55,6 +55,15 @@
   (let ((fill-column (point-max)))
     (fill-region (region-beginning) (region-end) nil)))
 
+;; Helpful function to add home directory subdirectories to magit-repo-dirs
+(defun tbh-add-magit-repo-dirs (dirs)
+  (when (not (boundp 'magit-repository-directories))
+    (setq magit-repository-directories '()))
+  (dolist (dir dirs)
+    (let ((full-path (expand-file-name dir)))
+      (when (file-directory-p full-path)
+        (add-to-list 'magit-repository-directories `(,full-path . 3))))))
+
 (defun dotspacemacs/layers ()
   "Layer configuration:
 This function should only modify configuration layer settings."

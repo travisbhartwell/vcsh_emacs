@@ -42,16 +42,6 @@
                               :width normal
                               :powerline-scale 1.1)))
 
-;; Helpful function to add home directory subdirectories to magit-repo-dirs
-(defun tbh-add-magit-repo-dirs (dirs)
-  (when (not (boundp 'magit-repository-directories))
-    (setq magit-repository-directories '()))
-  (dolist (dir dirs)
-    (let ((full-path (expand-file-name dir)))
-      (when (file-directory-p full-path)
-        (add-to-list 'magit-repository-directories `(,full-path . 3))))))
-
-
 (defun tbh/dotspacemacs/user-config ()
   "Local configuration function.
 This function is called at the very end of Spacemacs initialization after
