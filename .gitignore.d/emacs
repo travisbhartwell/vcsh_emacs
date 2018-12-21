@@ -7,3 +7,4 @@
 !/.spacemacs.d/layers/**
 !/.gnus.el
 !/.dovecot-wrapper
+.spacemacs.d/.spacemacs.env
